@@ -2,16 +2,12 @@
     "id": "duplicate-server",
     "name": "Duplicate Server",
     "author": "Dipsy",
-    "version": "0.1.0",
-    "description": "Adds an admin tool to duplicate Pelican servers safely with a new allocation.",
+    "version": "1.0.0",
+    "description": "Duplicate Pelican servers directly from the admin panel.",
     "category": "plugin",
     "namespace": "Dipsy\\DuplicateServer",
     "class": "DuplicateServerPlugin",
     "panels": [
         "admin"
-    ],
-    "meta": {
-        "status": "enabled",
-        "status_message": null
-    }
+    ]
 }
