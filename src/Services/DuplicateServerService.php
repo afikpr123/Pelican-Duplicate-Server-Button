@@ -64,34 +64,7 @@ class DuplicateServerService
 
         $newServer = app(ServerCreationService::class)->handle($data);
 
-        $this->copyFiles($source->uuid, $newServer->uuid);
 
         return $newServer->id;
-    }
-
-    protected function copyFiles(string $sourceUuid, string $newUuid): void
-    {
-        $sourcePath = '/var/lib/pterodactyl/volumes/' . $sourceUuid;
-        $newPath = '/var/lib/pterodactyl/volumes/' . $newUuid;
-
-        if (!is_dir($sourcePath)) {
-            return;
-        }
-
-        if (is_dir($newPath)) {
-            exec('sudo /bin/rm -rf ' . escapeshellarg($newPath));
-        }
-
-        exec('sudo /bin/cp -a ' . escapeshellarg($sourcePath) . ' ' . escapeshellarg($newPath) . ' 2>&1', $out, $code);
-
-        if ($code !== 0) {
-            throw new RuntimeException('File copy failed: ' . implode(' ', $out));
-        }
-
-        exec('sudo /bin/chown -R pterodactyl:pterodactyl ' . escapeshellarg($newPath) . ' 2>&1', $out, $code);
-
-        if ($code !== 0) {
-            throw new RuntimeException('Chown failed: ' . implode(' ', $out));
-        }
     }
 }
