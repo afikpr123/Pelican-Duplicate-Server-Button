@@ -1,151 +1,71 @@
-# 🚀 Pelican Duplicate Server Plugin
+# 🚀 Duplicate Server
 
-A powerful plugin for **Pelican Panel** that allows administrators to duplicate existing servers with a single click.
+A Pelican plugin that allows administrators to quickly duplicate existing servers from the Admin Panel.
 
-Designed for game hosting providers and community owners who frequently create multiple servers with identical configurations.
-
----
+The plugin creates a new server using Pelican's native server creation flow, ensuring full compatibility with Wings and websocket functionality.
 
 ## ✨ Features
 
-* 📋 Duplicate existing servers directly from the Admin Panel
-* 🌐 Automatically assigns a new allocation
-* 👤 Preserves server owner
-* 🥚 Copies Egg configuration
-* ⚙️ Copies startup settings
-* 💾 Copies resource limits
-* 🔑 Copies environment variables
-* 📂 Duplicates server files
-* 🔒 Prevents allocation conflicts
-* 🎨 Simple Filament-based interface
-
----
-
-## 📸 Preview
-
-After installation a new **Duplicate Server** page will appear in the Pelican Admin Panel.
-
-1. Select a source server
-2. Select a free allocation
-3. Choose a new server name
-4. Click **Duplicate Server**
-
-The plugin will automatically create a fully functional copy of the original server.
-
----
+* Duplicate existing servers
+* Assign a new allocation during creation
+* Preserve server owner
+* Copy startup configuration
+* Copy resource limits
+* Copy environment variables
+* Uses Pelican's native `ServerCreationService`
+* Fully compatible with Wings
+* Simple Filament-based interface
 
 ## 📦 Requirements
 
 * Pelican Panel
 * Wings
 * PHP 8.2+
-* Linux host
-* Root access for initial setup
 
----
+## 📸 Usage
 
-## ⚙️ Installation
+1. Open **Admin Panel**
+2. Navigate to **Duplicate Server**
+3. Select the source server
+4. Select a free allocation
+5. Enter a new server name
+6. Click **Duplicate Server**
 
-### 1. Upload the plugin
+The plugin will create a new server using the selected configuration.
 
-Extract the plugin into:
+## ⚠️ Important Notes
 
-```text
-/var/www/pelican/plugins/duplicate-server
-```
+* The new allocation must belong to the same node as the source server.
+* This plugin duplicates server configuration only.
+* Server files are not copied.
+* The duplicated server is created using Pelican's native server creation process.
 
-### 2. Install the plugin
+## 🛠 Installation
+
+1. Upload the plugin to your Pelican installation.
+2. Install the plugin from the Plugins section.
+3. Clear caches:
 
 ```bash
-cd /var/www/pelican
-
-php artisan p:plugin:install
 php artisan optimize:clear
 ```
 
-### 3. Configure sudo permissions
+4. Restart PHP-FPM and your web server if required.
 
-Edit sudoers:
+## 🔒 Security
 
-```bash
-sudo visudo
-```
-
-Add:
-
-```text
-www-data ALL=(root) NOPASSWD: /bin/cp, /bin/chown, /bin/rm
-```
-
-### 4. Restart services
-
-```bash
-systemctl restart php8.5-fpm
-systemctl restart nginx
-systemctl restart wings
-```
-
----
-
-## 🛠 How It Works
-
-Unlike database-only cloning solutions, this plugin uses Pelican's native:
-
-```php
-ServerCreationService
-```
-
-which ensures that:
-
-* The server is properly registered with Wings
-* Websocket support works correctly
-* Allocations are assigned safely
-* Environment variables are validated
-* Pelican remains fully aware of the new server
-
-After creation, the plugin copies the source server files into the newly generated UUID directory.
-
----
-
-## 🔒 Security Notice
-
-The plugin requires elevated permissions to duplicate server files.
-
-Only the following commands are allowed:
-
-```text
-/bin/cp
-/bin/chown
-/bin/rm
-```
-
-through a restricted sudo configuration.
-
----
-
-## 🐛 Known Limitations
-
-* Source and target allocations must be on the same node.
-* Large server directories may take longer to duplicate.
-* Active server processes should be stopped before duplication for best results.
-
----
+This plugin does not execute privileged system commands and does not modify system files.
 
 ## 📝 Changelog
 
-### v0.1.0
+### v1.0.1
 
-* Initial release
-* Server duplication support
-* Environment variable cloning
-* Allocation selection
-* File duplication support
-* Pelican native server creation integration
+* Marketplace compatibility improvements
+* Removed local-only metadata
+* Removed privileged file-copy operations
+* Improved Pelican integration
+* Uses native `ServerCreationService`
 
----
+## ❤️ Author
 
-## ❤️ Credits
-
-Developed by **Dipsy**
-
-Built for the Pelican hosting community.
+Dipsy
